@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
@@ -40,5 +41,12 @@ public class UserRepositoryTest {
         assertNotNull(foundUser);
         assertEquals(1, foundUser.getRoles().size());
         assertTrue(foundUser.getRoles().contains(roleAdmin));
+    }
+    @Test
+    public void testGetUserByEmail() {
+        String email = "ravi@gmail.com";
+        User user = userRepository.getUserByEmail(email);
+
+        assertThat(user).isNotNull();
     }
 }
